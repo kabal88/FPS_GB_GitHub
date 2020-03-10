@@ -372,7 +372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Bot: {fileID: 4610607387329660417, guid: 90d04365435342741aaeddf474703e5d, type: 3}
-  BerserkerBot: {fileID: 8439156619494031329, guid: a1b36e21ad5254babb174aaeb7b80367,
+  BerserkerBot: {fileID: 4610607387329660417, guid: 90d04365435342741aaeddf474703e5d,
     type: 3}
 --- !u!1 &513721343
 GameObject:
