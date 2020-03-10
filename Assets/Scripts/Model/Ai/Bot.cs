@@ -10,14 +10,20 @@ namespace Geekbrains
         public Vision Vision;
         public Sence Sence;
         public Weapon Weapon; //todo с разным оружием
-        public Transform Target { get; set; }
-        public NavMeshAgent Agent { get; private set; }
+
+       [SerializeField] private float _stoppingDistance = 2.0f;
+
         private float _waitTime = 3;
         private StateBot _stateBot;
+        private BodyBot _bodyBot;
+        private HeadBot _headBot;
         private Vector3 _point;
-        private float _stoppingDistance = 2.0f;
+        private Vector3 _visionPointBoarder;
 
         public event Action<Bot> OnDieChange;
+
+        public Transform Target { get; set; }
+        public NavMeshAgent Agent { get; private set; }
 
         private StateBot StateBot
         {
@@ -50,34 +56,46 @@ namespace Geekbrains
             }
         }
 
+
+        #region UnityMethods
+
         protected override void Awake()
         {
             base.Awake();
             Agent = GetComponent<NavMeshAgent>();
+            _bodyBot = GetComponentInChildren<BodyBot>();
+            _headBot = GetComponentInChildren<HeadBot>();
         }
 
         private void OnEnable()
         {
-            var bodyBot = GetComponentInChildren<BodyBot>();
-            if (bodyBot != null) bodyBot.OnApplyDamageChange += SetDamage;
-
-            var headBot = GetComponentInChildren<HeadBot>();
-            if (headBot != null) headBot.OnApplyDamageChange += SetDamage;
+            if (_bodyBot != null) _bodyBot.OnApplyDamageChange += SetDamage;
+            if (_headBot != null) _headBot.OnApplyDamageChange += SetDamage;
         }
 
         private void OnDisable()
         {
-            var bodyBot = GetComponentInChildren<BodyBot>();
-            if (bodyBot != null) bodyBot.OnApplyDamageChange -= SetDamage;
-
-            var headBot = GetComponentInChildren<HeadBot>();
-            if (headBot != null) headBot.OnApplyDamageChange -= SetDamage;
+            if (_bodyBot != null) _bodyBot.OnApplyDamageChange -= SetDamage;
+            if (_headBot != null) _headBot.OnApplyDamageChange -= SetDamage;
         }
 
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.cyan;
             Gizmos.DrawWireSphere(transform.position, Sence.ActiveDistance);
+            Gizmos.DrawLine(transform.position, transform.position + Vector3.forward * Vision.ActiveDis);
+
+            Gizmos.color = Color.yellow;
+            _visionPointBoarder.x = transform.position.x + Vision.ActiveDis * Mathf.Cos(Mathf.Deg2Rad * (Vision.ActiveAng + 90));
+            _visionPointBoarder.z = transform.position.z + Vision.ActiveDis * Mathf.Sin(Mathf.Deg2Rad * (Vision.ActiveAng + 90));
+            _visionPointBoarder.y = transform.position.y;
+            Gizmos.DrawLine(transform.position, _visionPointBoarder);
+
+
+            _visionPointBoarder.x = transform.position.x + Vision.ActiveDis * Mathf.Cos(Mathf.Deg2Rad * (-Vision.ActiveAng + 90));
+            _visionPointBoarder.z = transform.position.z + Vision.ActiveDis * Mathf.Sin(Mathf.Deg2Rad * (-Vision.ActiveAng + 90));
+            _visionPointBoarder.y = transform.position.y;
+            Gizmos.DrawLine(transform.position, _visionPointBoarder);
 
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, Vision.ActiveDis);
@@ -85,6 +103,8 @@ namespace Geekbrains
             Gizmos.color = Color.magenta;
             Gizmos.DrawLine(transform.position, _point);
         }
+
+        #endregion
 
         public void Tick()
         {
@@ -99,6 +119,8 @@ namespace Geekbrains
                     if (Vision.VisionM(transform, Target))
                     {
                         Weapon.Fire();
+                        _point = Target.position;
+                        MoveToPoint(_point);
                     }
                     else
                     {
@@ -123,7 +145,7 @@ namespace Geekbrains
 
                     RefreshStopingDistance();
                     ObservingForEnemy();
-                    if (Vector3.Distance(_point, transform.position) <= 1)
+                    if (Vector3.Distance(_point, transform.position) <= _stoppingDistance)
                     {
                         StateBot = StateBot.Inspection;
                         Invoke(nameof(ResetStateBot), _waitTime);
