@@ -107,12 +107,18 @@ namespace Geekbrains
 					curMaterial.color = color;
 				}
 			}
-			if (obj.childCount <= 0) return;
-			foreach (Transform d in obj)
+			if (obj.childCount > 0)
 			{
-				AskColor(d, color);
+				foreach (Transform d in obj)
+				{
+                    if(!d.TryGetComponent<HeadBot>(out var headBot))
+                    {
+						AskColor(d, color);
+                    }
+				}
 			}
 		}
+
 		#endregion
 		
 		/// <summary>

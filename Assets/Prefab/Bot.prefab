@@ -288,6 +288,7 @@ MonoBehaviour:
     ActiveDistance: 30
   Weapon: {fileID: 2443827103268533189}
   _stoppingDistance: 10
+  _affiliationSide: 0
 --- !u!114 &4747817453825760653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,6 +316,7 @@ GameObject:
   - component: {fileID: 6290551937464229286}
   - component: {fileID: 3928694186083338678}
   - component: {fileID: 2086305534}
+  - component: {fileID: 6216935320918173994}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -410,3 +412,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rigidbody: {fileID: 0}
   Transform: {fileID: 0}
+--- !u!114 &6216935320918173994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7227790147927351016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f08bb249ecb94b8185f00f62ff5a5d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rigidbody: {fileID: 0}
+  Transform: {fileID: 0}
+  _sideOneColor: {r: 0.87058824, g: 0.17865458, b: 0, a: 1}
+  _sideTwoColor: {r: 0.0035599943, g: 0.0035599943, b: 0.754717, a: 1}

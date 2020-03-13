@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,7 +12,8 @@ namespace Geekbrains
         public Sence Sence;
         public Weapon Weapon; //todo с разным оружием
 
-       [SerializeField] private float _stoppingDistance = 2.0f;
+        [SerializeField] private float _stoppingDistance = 2.0f;
+        [SerializeField] private Affiliation _affiliationSide;
 
         private float _waitTime = 3;
         private StateBot _stateBot;
@@ -23,7 +25,18 @@ namespace Geekbrains
         public event Action<Bot> OnDieChange;
 
         public Transform Target { get; set; }
+        public List<Transform> Targets { get; set; }
         public NavMeshAgent Agent { get; private set; }
+        public Affiliation AffiliationSide
+        {
+            get => _affiliationSide;
+            set
+            {
+                _affiliationSide = value;
+                SetSide();
+            }
+        }
+
 
         private StateBot StateBot
         {
@@ -119,15 +132,13 @@ namespace Geekbrains
                     if (Vision.VisionM(transform, Target))
                     {
                         Weapon.Fire();
-                        _point = Target.position;
-                        MoveToPoint(_point);
+                        CaptureTarget(Target.position);
                     }
                     else
                     {
                         if (Sence.FeelingTarget(transform, Target))
                         {
-                            _point = Target.position;
-                            MoveToPoint(_point);
+                            CaptureTarget(Target.position);
                         }
                         else
                         {
@@ -163,6 +174,12 @@ namespace Geekbrains
                     break;
 
             }
+        }
+
+        private void CaptureTarget(Vector3 target)
+        {
+            _point = target;
+            MoveToPoint(_point);
         }
 
         private void InitializationPatroling()
@@ -243,6 +260,15 @@ namespace Geekbrains
         public void MoveToPoint(Vector3 point)
         {
             Agent.SetDestination(point);
+        }
+
+        private void SetSide()
+        {
+            var flag = GetComponentInChildren<FlagBot>();
+            if (flag != null)
+            {
+                flag.AffiliationSide = _affiliationSide;
+            }
         }
     }
 }
