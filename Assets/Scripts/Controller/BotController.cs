@@ -20,10 +20,10 @@ namespace Geekbrains
 
            // for (var index = 0; index < _countBot; index++)
          //   {
+
                 var tempBot = Object.Instantiate(ServiceLocatorMonoBehaviour.GetService<Reference>().Bot,
                     Patrol.GenericPoint(ServiceLocatorMonoBehaviour.GetService<CharacterController>().transform),
                     Quaternion.identity);
-
                 tempBot.Agent.avoidancePriority = 0;
             // tempBot.Target = ServiceLocatorMonoBehaviour.GetService<CharacterController>().transform;
             tempBot.Target = targetBot.transform;
@@ -33,6 +33,7 @@ namespace Geekbrains
        //     }
 
             targetBot.Target = tempBot.transform;
+
         }
 
         private void AddBotToList(Bot bot)

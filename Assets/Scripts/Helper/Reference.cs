@@ -6,5 +6,6 @@ namespace Geekbrains
     {
         public Bot Bot;
         public Bot BerserkerBot;
+
     }
 }

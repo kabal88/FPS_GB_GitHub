@@ -25,6 +25,7 @@ namespace Geekbrains
         public Transform Target { get; set; }
         public NavMeshAgent Agent { get; private set; }
 
+
         private StateBot StateBot
         {
             get => _stateBot;
@@ -52,7 +53,6 @@ namespace Geekbrains
                         Color = Color.cyan;
                         break;
                 }
-
             }
         }
 
@@ -204,6 +204,7 @@ namespace Geekbrains
             }
         }
 
+
         private void ResetStateBot()
         {
             StateBot = StateBot.None;
@@ -240,7 +241,9 @@ namespace Geekbrains
             }
         }
 
+
         public void MoveToPoint(Vector3 point)
+
         {
             Agent.SetDestination(point);
         }

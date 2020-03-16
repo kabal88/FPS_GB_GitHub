@@ -61,7 +61,9 @@ namespace Geekbrains
             if (!_agent.Agent.hasPath)
             {
                 var point = _points.Dequeue();
+
                 _agent.MoveToPoint(point);
+
                 CurrentPoint = point;
             }
         }
