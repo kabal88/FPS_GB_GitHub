@@ -208,7 +208,7 @@ GameObject:
   - component: {fileID: 4610607387329660417}
   - component: {fileID: 4747817453825760653}
   - component: {fileID: 7152195921615754576}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -335,11 +335,12 @@ MonoBehaviour:
     ActiveAng: 80
     LayerMask:
       serializedVersion: 2
-      m_Bits: 55
+      m_Bits: 1079
   Sence:
     ActiveDistance: 30
   Weapon: {fileID: 2443827103268533189}
-  _stoppingDistance: 10
+  _stoppingDistanceForDetected: 5
+  _stoppingDistanceForPatroling: 1.5
   _affiliationSide: 0
 --- !u!114 &4747817453825760653
 MonoBehaviour:

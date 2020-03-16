@@ -11,7 +11,7 @@ namespace Geekbrains
 
         public InputController()
         {
-            Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.lockState = CursorLockMode.Locked;
         }
 		
         public void Execute()

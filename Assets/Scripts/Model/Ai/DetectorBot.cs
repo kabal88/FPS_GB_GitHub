@@ -27,7 +27,7 @@ namespace Geekbrains
 
         private void OnTriggerEnter(Collider other)
         {
-            CustomDebug.Log($"Detector detected - {other.name}");
+           // CustomDebug.Log($"Detector detected - {other.name}");
             if(other.TryGetComponent<ITargeted>(out var target))
             {
                 OnTargetDetected.Invoke(target);

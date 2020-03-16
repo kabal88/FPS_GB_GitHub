@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Geekbrains
 {
 	public sealed class Axe : Weapon
 	{
         [SerializeField] private float _damage = 10.0f;
+
+        public override event Action OnAmmoEnd = delegate { };
 
         protected override void Start()
         {

@@ -12,11 +12,13 @@ namespace Geekbrains
         public Sence Sence;
         public Weapon Weapon; //todo с разным оружием
 
-        [SerializeField] private float _stoppingDistance = 2.0f;
+        [SerializeField] private float _stoppingDistanceForDetected = 5.0f;
+        [SerializeField] private float _stoppingDistanceForPatroling = 1.5f;
         [SerializeField] private Affiliation _affiliationSide;
 
-        private float _waitTime = 3;
-        private float _rotationSpeed = 120;
+        private float _waitTime = 3.0f;
+        private float _rotationSpeed = 120.0f;
+        private float _distanceOffset = 0.1f;
         private StateBot _stateBot;
         private BodyBot _bodyBot;
         private HeadBot _headBot;
@@ -93,6 +95,7 @@ namespace Geekbrains
             if (_headBot != null) _headBot.OnApplyDamageChange += SetDamage;
             if (_detectorBot != null) _detectorBot.OnTargetDetected += AddTargetToTargetsList;
             if (_detectorBot != null) _detectorBot.OnTargetLost += RemoveTargetFromTargetList;
+            if (Weapon != null) Weapon.OnAmmoEnd += Weapon.ReloadClip;
         }
 
         private void OnDisable()
@@ -101,15 +104,19 @@ namespace Geekbrains
             if (_headBot != null) _headBot.OnApplyDamageChange -= SetDamage;
             if (_detectorBot != null) _detectorBot.OnTargetDetected -= AddTargetToTargetsList;
             if (_detectorBot != null) _detectorBot.OnTargetLost -= RemoveTargetFromTargetList;
+            if (Weapon != null) Weapon.OnAmmoEnd -= Weapon.ReloadClip;
         }
 
         private void OnDrawGizmos()
         {
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawLine(transform.position, _point);
+
             Gizmos.color = Color.cyan;
-            var flat = new Vector3(1, 0, 1);
-            //Gizmos.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, flat);
-            Gizmos.DrawWireSphere(transform.position, Sence.ActiveDistance);
-            Gizmos.DrawLine(transform.position, transform.position + Vector3.forward * Vision.ActiveDis);
+            var flat = new Vector3(1, 1, 1);
+            Gizmos.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, flat);
+           // Gizmos.DrawWireSphere(transform.position, Sence.ActiveDistance);
+            Gizmos.DrawLine(transform.position, transform.position + Vector3.forward);
 
             //Gizmos.color = Color.yellow;
             //_visionPointBoarder.x = transform.forward.x + Vision.ActiveDis * Mathf.Cos(Mathf.Deg2Rad * (Vision.ActiveAng));
@@ -123,11 +130,10 @@ namespace Geekbrains
             //_visionPointBoarder.y = transform.forward.y;
             //Gizmos.DrawLine(transform.position, _visionPointBoarder);
 
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, Vision.ActiveDis);
+          //  Gizmos.color = Color.red;
+           // Gizmos.DrawWireSphere(transform.position, Vision.ActiveDis);
 
-            Gizmos.color = Color.magenta;
-            Gizmos.DrawLine(transform.position, _point);
+
         }
 
         #endregion
@@ -155,7 +161,6 @@ namespace Geekbrains
 
                             if (Agent.velocity == Vector3.zero)
                             {
-                                CustomDebug.Log($"Agent.velocity - {Agent.velocity}");
                                 AimingToTarget(Target.position);
                             }
                         }
@@ -174,7 +179,7 @@ namespace Geekbrains
                     }
                     else
                     {
-                        CustomDebug.Log($"ChooseTarget false");
+                        //CustomDebug.Log($"ChooseTarget false");
                         StateBot = StateBot.Patrol;
                     }
 
@@ -192,13 +197,16 @@ namespace Geekbrains
                     RefreshStopingDistance();
                     ObservingForEnemy();
 
-                    if (Vector3.Distance(_point, transform.position) <= _stoppingDistance)
+                    //CustomDebug.Log($"Distance = {Vector3.Distance(_point, transform.position)}, stop - offset = {_stoppingDistanceForPatroling + _distanceOffset} ");
+                    if (Vector3.Distance(_point, transform.position) <= _stoppingDistanceForPatroling)
                     {
                         StateBot = StateBot.Inspection;
+                        CustomDebug.Log($"StateBot = {StateBot}");
                         Invoke(nameof(ResetStateBot), _waitTime);
                     }
                     else
                     {
+                        CustomDebug.Log($"StateBot = {StateBot} after distance checked");
                         MoveToPoint(_point);
                     }
 
@@ -218,6 +226,7 @@ namespace Geekbrains
         {
             var hasTarget = false;
 
+            //CustomDebug.Log($"_targetsTransforms.Count = {_targetsTransforms.Count}");
             if (_targetsTransforms.Count > 0)
             {
                 Target = _targetsTransforms[0];
@@ -244,17 +253,19 @@ namespace Geekbrains
 
         private void InitializationPatroling()
         {
+            CustomDebug.Log($"Agent.hasPath = {Agent.hasPath}");
             if (!Agent.hasPath)
             {
                 _point = Patrol.GenericPoint(transform);
                 MoveToPoint(_point);
-                Agent.stoppingDistance = 0;
+                Agent.stoppingDistance = _stoppingDistanceForPatroling;
             }
             StateBot = StateBot.Patrol;
         }
 
         private void ObservingForEnemy()
         {
+            if (Target == null) return;
             if (Vision.VisionM(transform, Target))
             {
                 StateBot = StateBot.Detected;
@@ -263,6 +274,7 @@ namespace Geekbrains
 
         private void AddTargetToTargetsList(ITargeted target)
         {
+            if (target.GetAffiliation() == Affiliation.None) return;
             if (target.GetAffiliation() != _affiliationSide)
             {
                 _targetsTransforms.Add(target.GetTransform());
@@ -299,15 +311,15 @@ namespace Geekbrains
             switch (StateBot)
             {
                 case StateBot.Detected:
-                    if (Agent.stoppingDistance != _stoppingDistance)
+                    if (Agent.stoppingDistance != _stoppingDistanceForDetected)
                     {
-                        Agent.stoppingDistance = _stoppingDistance;
+                        Agent.stoppingDistance = _stoppingDistanceForDetected;
                     }
                     break;
                 default:
-                    if (Agent.stoppingDistance != 0.0f)
+                    if (Agent.stoppingDistance != _stoppingDistanceForPatroling)
                     {
-                        Agent.stoppingDistance = 0;
+                        Agent.stoppingDistance = _stoppingDistanceForPatroling;
                     }
                     break;
 
@@ -341,6 +353,9 @@ namespace Geekbrains
                     {
                         tempRbChild = child.gameObject.AddComponent<Rigidbody>();
                     }
+
+                    tempRbChild.isKinematic = false;
+                    tempRbChild.useGravity = true;
                     //tempRbChild.AddForce(info.Dir * Random.Range(10, 300));
                     
                     Destroy(child.gameObject, 10);
@@ -348,6 +363,7 @@ namespace Geekbrains
 
                 OnDeath?.Invoke(this.transform);
                 OnDieChange?.Invoke(this);
+                //gameObject.GetComponent<Bot>().enabled = false;
             }
         }
 
@@ -365,16 +381,30 @@ namespace Geekbrains
             }
         }
 
+        #endregion
+
+
+        #region ITargeted
+
         public Affiliation GetAffiliation()
         {
+            if(StateBot == StateBot.Died)
+            {
+                return Affiliation.None;
+            }
+            else
+            {
             return _affiliationSide;
+            }
+            
         }
 
         public Transform GetTransform()
         {
             return Transform;
         }
-    }
 
-    #endregion
+        #endregion
+
+    }
 }

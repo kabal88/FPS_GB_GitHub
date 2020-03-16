@@ -6,32 +6,37 @@ namespace Geekbrains
 {
     public sealed class BotController : BaseController, IExecute, IInitialization
     {
-        private readonly int _countBot = 1;
+        private readonly int _countBotSideOne = 1;
+        private readonly int _countBotSideTwo = 1;
         private readonly HashSet<Bot> _getBotList = new HashSet<Bot>();
 
         public void Initialization()
         {
-            var targetBot = Object.Instantiate(ServiceLocatorMonoBehaviour.GetService<Reference>().BerserkerBot,
-                Patrol.GenericPoint(ServiceLocatorMonoBehaviour.GetService<CharacterController>().transform),
-                Quaternion.identity);
 
-            targetBot.Agent.avoidancePriority = 0;
-            targetBot.AffiliationSide = Affiliation.SideOne;
-            AddBotToList(targetBot);
+            for (int index = 0; index < _countBotSideOne; index++)
+            {
+                var tempBot = Object.Instantiate(ServiceLocatorMonoBehaviour.GetService<Reference>().BerserkerBot,
+                    Patrol.GenericPoint(ServiceLocatorMonoBehaviour.GetService<CharacterController>().transform),
+                    Quaternion.identity);
 
-            for (var index = 0; index < _countBot; index++)
+                tempBot.Agent.avoidancePriority = 0;
+                tempBot.AffiliationSide = Affiliation.SideOne;
+                AddBotToList(tempBot);
+            }
+
+            for (var index = 0; index < _countBotSideTwo; index++)
             {
                 var tempBot = Object.Instantiate(ServiceLocatorMonoBehaviour.GetService<Reference>().Bot,
                     Patrol.GenericPoint(ServiceLocatorMonoBehaviour.GetService<CharacterController>().transform),
                     Quaternion.identity);
 
                 tempBot.Agent.avoidancePriority = 0;
-                tempBot.Target = ServiceLocatorMonoBehaviour.GetService<CharacterController>().transform;
-                tempBot.Target = targetBot.transform;
+                //tempBot.Target = ServiceLocatorMonoBehaviour.GetService<CharacterController>().transform;
+                //tempBot.Target = targetBot.transform;
                 tempBot.AffiliationSide = Affiliation.SideTwo;
                 //todo разных противников
                 AddBotToList(tempBot);
-                targetBot.Target = tempBot.transform;
+                //targetBot.Target = tempBot.transform;
             }
 
         }
@@ -62,7 +67,7 @@ namespace Geekbrains
             {
                 return;
             }
-
+            //CustomDebug.Log($"_getBotList.Count for execute = {_getBotList.Count}");
             for (var i = 0; i < _getBotList.Count; i++)
             {
                 var bot = _getBotList.ElementAt(i);
