@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 607181374497758089}
   - component: {fileID: 302777892539440303}
   - component: {fileID: 8901952978020707258}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rigidbody: {fileID: 0}
+  Transform: {fileID: 0}
   _timeToDestruct: 10
   _baseDamage: 10
   Type: 4
@@ -138,7 +139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1684588138353429547}
   - component: {fileID: 8075673119820857706}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}

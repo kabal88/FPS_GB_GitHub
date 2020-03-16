@@ -7,15 +7,17 @@ namespace Geekbrains
     {
         public float ActiveDis = 10;
         public float ActiveAng = 35;
+        public LayerMask LayerMask;
 
         public bool VisionM(Transform player, Transform target)
         {
+            //CustomDebug.Log($"Distance - {Distance(player, target)}, Angle - {Angle(player, target)}, CheckBloked - {CheckBloked(player, target)}");
             return Distance(player, target) && Angle(player, target) && !CheckBloked(player, target);
         }
 
         private bool CheckBloked(Transform player, Transform target)
         {
-            if (!Physics.Linecast(player.position, target.position, out var hit)) return true;
+            if (!Physics.Linecast(player.position, target.position, out var hit, LayerMask)) return true;
             return hit.transform != target;
         }
 

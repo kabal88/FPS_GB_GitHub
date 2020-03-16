@@ -20,7 +20,7 @@ namespace Geekbrains
 
         private void OnCollisionEnter(Collision collision)
         {
-            CustumDebug.Log($"collision woth {collision}");
+            CustomDebug.Log($"collision woth {collision}");
 
             var tempObj = collision.gameObject.GetComponent<ISetDamage>();
 
