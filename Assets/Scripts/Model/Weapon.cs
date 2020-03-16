@@ -20,7 +20,9 @@ namespace Geekbrains
 
 		protected bool _isReady = true;
 
-		private void Start()
+
+		protected virtual void Start()
+
 		{
 			for (var i = 0; i <= _countClip; i++)
 			{

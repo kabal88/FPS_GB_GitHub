@@ -6,22 +6,34 @@ namespace Geekbrains
 {
     public sealed class BotController : BaseController, IExecute, IInitialization
     {
-        private readonly int _countBot = 0;
+        private readonly int _countBot = 4;
         private readonly HashSet<Bot> _getBotList  = new HashSet<Bot>();
 
         public void Initialization()
         {
-            for (var index = 0; index < _countBot; index++)
-            {
+            var targetBot = Object.Instantiate(ServiceLocatorMonoBehaviour.GetService<Reference>().BerserkerBot,
+                Patrol.GenericPoint(ServiceLocatorMonoBehaviour.GetService<CharacterController>().transform),
+                Quaternion.identity);
+
+            targetBot.Agent.avoidancePriority = 0;
+            AddBotToList(targetBot);
+
+           // for (var index = 0; index < _countBot; index++)
+         //   {
+
                 var tempBot = Object.Instantiate(ServiceLocatorMonoBehaviour.GetService<Reference>().Bot,
                     Patrol.GenericPoint(ServiceLocatorMonoBehaviour.GetService<CharacterController>().transform),
                     Quaternion.identity);
+                tempBot.Agent.avoidancePriority = 0;
+            // tempBot.Target = ServiceLocatorMonoBehaviour.GetService<CharacterController>().transform;
+            tempBot.Target = targetBot.transform;
 
-                tempBot.Agent.avoidancePriority = index;
-                tempBot.Target = ServiceLocatorMonoBehaviour.GetService<CharacterController>().transform; 
                 //todo разных противников
-                AddBotToList(tempBot);
-            }
+            AddBotToList(tempBot);
+       //     }
+
+            targetBot.Target = tempBot.transform;
+
         }
 
         private void AddBotToList(Bot bot)

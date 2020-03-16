@@ -282,9 +282,12 @@ MonoBehaviour:
   Transform: {fileID: 0}
   Hp: 100
   Vision:
-    ActiveDis: 10
-    ActiveAng: 35
+    ActiveDis: 20
+    ActiveAng: 80
+  Sence:
+    ActiveDistance: 30
   Weapon: {fileID: 2443827103268533189}
+  _stoppingDistance: 10
 --- !u!114 &4747817453825760653
 MonoBehaviour:
   m_ObjectHideFlags: 0
