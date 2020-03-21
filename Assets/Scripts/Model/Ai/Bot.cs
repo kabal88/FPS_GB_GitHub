@@ -190,6 +190,11 @@ namespace Geekbrains
                 case StateBot.Inspection:
 
                     ObservingForEnemy();
+                    if (!_isResetingState)
+                    {
+                        Invoke(nameof(ResetStateBot), _waitTime);
+                        _isResetingState = true;
+                    }
 
                     break;
 
@@ -199,15 +204,10 @@ namespace Geekbrains
                     ObservingForEnemy();
 
                     //CustomDebug.Log($"Distance = {Vector3.Distance(_point, transform.position)}, stop - offset = {_stoppingDistanceForPatroling + _distanceOffset} ");
-                    if (Vector3.Distance(_point, transform.position) <= _stoppingDistanceForPatroling)
+                    if (CustomVector.CheckDistanceMatch(_point, transform.position, _stoppingDistanceForPatroling))
                     {
-                        if (!_isResetingState)
-                        {
                             StateBot = StateBot.Inspection;
-                            CustomDebug.Log($"StateBot = {StateBot}");
-                            Invoke(nameof(ResetStateBot), _waitTime);
-                            _isResetingState = true;
-                        }
+                            //CustomDebug.Log($"StateBot = {StateBot}");  
                     }
                     else
                     {
@@ -334,7 +334,7 @@ namespace Geekbrains
         private void ResetStateBot()
         {
             StateBot = StateBot.None;
-            _isResetingState = true;
+            _isResetingState = false;
         }
 
         private void SetDamage(InfoCollision info)
