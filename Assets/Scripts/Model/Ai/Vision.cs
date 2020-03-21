@@ -19,7 +19,7 @@ namespace Geekbrains
 
         public bool VisionM(Transform player, Transform target)
         {
-            return Angle(player, target) && !CheckBloked(player, target);
+            return !CheckBloked(player, target);
         }
 
         private bool CheckBloked(Transform player, Transform target)
@@ -28,17 +28,17 @@ namespace Geekbrains
             return hit.transform != target;
         }
 
-        private bool Angle(Transform player, Transform target)
-        {
-            var angle = Vector3.Angle(player.forward, target.position - player.position);
-            return angle <= ActiveVisionAngle;
-        }
+        //private bool Angle(Transform player, Transform target)
+        //{
+        //    var angle = Vector3.Angle(player.forward, target.position - player.position);
+        //    return angle <= ActiveVisionAngle;
+        //}
 
-        private bool Distance(Transform player, Transform target)
-        {
-            var distSqr = CustomVector.DistanceSqr(player.position, target.position);
-            return distSqr <= Mathf.Pow(ActiveVisionDistance,2);
-        }
+        //private bool Distance(Transform player, Transform target)
+        //{
+        //    var distSqr = CustomVector.DistanceSqr(player.position, target.position);
+        //    return distSqr <= Mathf.Pow(ActiveVisionDistance,2);
+        //}
 
         public bool FeelingTarget(Transform player, Transform target)
         {
