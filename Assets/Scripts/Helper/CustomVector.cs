@@ -7,18 +7,16 @@ namespace Geekbrains
     {
         public static float DistanceSqr(Vector3 a, Vector3 b)
         {
-            var dist = DistanceSqr(a, b);
-            dist += Mathf.Pow(b.z - a.z, 2);
+            if (a == null) throw new ArgumentNullException("a");
+            if (b == null) throw new ArgumentNullException("b");
+            var dist = Mathf.Pow(b.x - a.x, 2) + Mathf.Pow(b.y - a.y, 2) + Mathf.Pow(b.z - a.z, 2);
             return dist;
         }
 
-
-        public static float DistanceSqr(Vector2 a, Vector2 b)
+        public static bool CheckDistanceMatch(Vector3 a,Vector3 b, float targetDistance)
         {
-            if (a == null) throw new ArgumentNullException("a");
-            if (b == null) throw new ArgumentNullException("b");
-            var dist = Mathf.Pow(b.x - a.x, 2) + Mathf.Pow(b.y - a.y, 2);
-            return dist;
+            var dist = DistanceSqr(a, b);
+            return dist <= Mathf.Pow(targetDistance, 2);
         }
 
     }
