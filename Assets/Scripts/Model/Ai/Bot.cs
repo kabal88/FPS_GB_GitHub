@@ -35,7 +35,8 @@ namespace Geekbrains
 
         public NavMeshAgent Agent { get; private set; }
         [ShowInInspector] public Transform Target { get; set; }
-        [ShowInInspector] public Affiliation AffiliationSide
+        [ShowInInspector]
+        public Affiliation AffiliationSide
         {
             get => _affiliationSide;
             set
@@ -120,7 +121,7 @@ namespace Geekbrains
             Gizmos.color = Color.cyan;
             var flat = new Vector3(1, 1, 1);
             Gizmos.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, flat);
-           // Gizmos.DrawWireSphere(transform.position, Sence.ActiveDistance);
+            // Gizmos.DrawWireSphere(transform.position, Sence.ActiveDistance);
             Gizmos.DrawLine(transform.position, transform.position + Vector3.forward);
 
             //Gizmos.color = Color.yellow;
@@ -135,8 +136,8 @@ namespace Geekbrains
             //_visionPointBoarder.y = transform.forward.y;
             //Gizmos.DrawLine(transform.position, _visionPointBoarder);
 
-          //  Gizmos.color = Color.red;
-           // Gizmos.DrawWireSphere(transform.position, Vision.ActiveDis);
+            //  Gizmos.color = Color.red;
+            // Gizmos.DrawWireSphere(transform.position, Vision.ActiveDis);
 
 
         }
@@ -208,10 +209,10 @@ namespace Geekbrains
                     ObservingForEnemy();
 
                     //CustomDebug.Log($"Distance = {Vector3.Distance(_point, transform.position)}, stop - offset = {_stoppingDistanceForPatroling + _distanceOffset} ");
-                    if (CustomVector.CheckDistanceMatch(_point, transform.position, _stoppingDistanceForPatroling))
+                    if (CustomVector.CheckDistanceMatch(_point, transform.position, _stoppingDistanceForPatroling) || Agent.velocity == Vector3.zero)
                     {
-                            StateBot = StateBot.Inspection;
-                            //CustomDebug.Log($"StateBot = {StateBot}");  
+                        StateBot = StateBot.Inspection;
+                        //CustomDebug.Log($"StateBot = {StateBot}");  
                     }
                     else
                     {
@@ -291,7 +292,7 @@ namespace Geekbrains
                 _targetsTransforms.Add(target.GetTransform());
                 target.OnDeath += RemoveTargetFromTargetList;
                 StateBot = StateBot.Detected;
-            }    
+            }
         }
 
         private void RemoveTargetFromTargetList(ITargeted target)
@@ -369,7 +370,7 @@ namespace Geekbrains
                     tempRbChild.isKinematic = false;
                     tempRbChild.useGravity = true;
                     //tempRbChild.AddForce(info.Dir * Random.Range(10, 300));
-                    
+
                     Destroy(child.gameObject, 10);
                 }
 
@@ -387,7 +388,7 @@ namespace Geekbrains
 
         private void SetSide()
         {
-                _flagBot.AffiliationSide = _affiliationSide;
+            _flagBot.AffiliationSide = _affiliationSide;
         }
 
         #endregion
@@ -397,15 +398,15 @@ namespace Geekbrains
 
         public Affiliation GetAffiliation()
         {
-            if(StateBot == StateBot.Died)
+            if (StateBot == StateBot.Died)
             {
                 return Affiliation.None;
             }
             else
             {
-            return _affiliationSide;
+                return _affiliationSide;
             }
-            
+
         }
 
         public Transform GetTransform()

@@ -15,7 +15,7 @@ namespace Geekbrains
 
             for (int index = 0; index < _countBotSideOne; index++)
             {
-                var tempBot = Object.Instantiate(ServiceLocatorMonoBehaviour.GetService<Reference>().BerserkerBot,
+                var tempBot = Object.Instantiate(ServiceLocatorMonoBehaviour.GetService<Reference>().BotTypeOne,
                     Patrol.GenericPoint(ServiceLocatorMonoBehaviour.GetService<CharacterController>().transform),
                     Quaternion.identity);
 
@@ -26,7 +26,7 @@ namespace Geekbrains
 
             for (var index = 0; index < _countBotSideTwo; index++)
             {
-                var tempBot = Object.Instantiate(ServiceLocatorMonoBehaviour.GetService<Reference>().Bot,
+                var tempBot = Object.Instantiate(ServiceLocatorMonoBehaviour.GetService<Reference>().BotTypeTwo,
                     Patrol.GenericPoint(ServiceLocatorMonoBehaviour.GetService<CharacterController>().transform),
                     Quaternion.identity);
 
