@@ -19,8 +19,9 @@ namespace Geekbrains
             ServiceLocator.SetService(new WeaponController());
             ServiceLocator.SetService(new Inventory());
             ServiceLocator.SetService(new BotController());
+            ServiceLocator.SetService(new TimeRemainingController());
             
-            _executeControllers = new IExecute[5];
+            _executeControllers = new IExecute[6];
 
             _executeControllers[0] = ServiceLocator.Resolve<PlayerController>();
 
@@ -31,6 +32,8 @@ namespace Geekbrains
             _executeControllers[3] = ServiceLocator.Resolve<SelectionController>();
             
             _executeControllers[4] = ServiceLocator.Resolve<BotController>();
+
+            _executeControllers[5] = ServiceLocator.Resolve<TimeRemainingController>();
         }
         
         public IExecute this[int index] => _executeControllers[index];
