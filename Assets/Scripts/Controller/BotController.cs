@@ -6,8 +6,8 @@ namespace Geekbrains
 {
     public sealed class BotController : BaseController, IExecute, IInitialization
     {
-        private readonly int _countBotSideOne = 1;
-        private readonly int _countBotSideTwo = 1;
+        private readonly int _countBotSideOne = 5;
+        private readonly int _countBotSideTwo = 5;
         private readonly HashSet<Bot> _getBotList = new HashSet<Bot>();
 
         public void Initialization()

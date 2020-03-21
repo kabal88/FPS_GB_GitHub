@@ -54,6 +54,7 @@ namespace Geekbrains
                 switch (value)
                 {
                     case StateBot.None:
+                        CustomDebug.Log($"Agent.hasPath = {Agent.hasPath}");
                         Color = Color.white;
                         break;
                     case StateBot.Patrol:
@@ -63,6 +64,7 @@ namespace Geekbrains
                         Color = Color.yellow;
                         break;
                     case StateBot.Detected:
+                        CustomDebug.Log($"_targetsTransforms.Count = {_targetsTransforms.Count}");
                         Color = Color.red;
                         break;
                     case StateBot.Died:
@@ -167,14 +169,14 @@ namespace Geekbrains
                         }
                         else
                         {
-                            if (Sence.FeelingTarget(transform, Target))
-                            {
-                                CaptureTarget(Target.position);
-                            }
-                            else
-                            {
+                            //if (Sence.FeelingTarget(transform, Target))
+                            //{
+                            //    CaptureTarget(Target.position);
+                            //}
+                            //else
+                            //{
                                 StateBot = StateBot.Patrol;
-                            }
+                            //}
                         }
 
                     }
@@ -211,7 +213,7 @@ namespace Geekbrains
                     }
                     else
                     {
-                        CustomDebug.Log($"StateBot = {StateBot} after distance checked");
+                        //CustomDebug.Log($"StateBot = {StateBot} after distance checked");
                         MoveToPoint(_point);
                     }
 
@@ -258,7 +260,7 @@ namespace Geekbrains
 
         private void InitializationPatroling()
         {
-            CustomDebug.Log($"Agent.hasPath = {Agent.hasPath}");
+            
             if (!Agent.hasPath)
             {
                 _point = Patrol.GenericPoint(transform);

@@ -339,8 +339,8 @@ MonoBehaviour:
   Sence:
     ActiveDistance: 30
   Weapon: {fileID: 2443827103268533189}
-  _stoppingDistanceForDetected: 5
-  _stoppingDistanceForPatroling: 1.5
+  _stoppingDistanceForDetected: 10
+  _stoppingDistanceForPatroling: 1
   _affiliationSide: 0
 --- !u!114 &4747817453825760653
 MonoBehaviour:
