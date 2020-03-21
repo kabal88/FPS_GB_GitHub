@@ -9,8 +9,8 @@ namespace Geekbrains
 
         public bool FeelingTarget(Transform player, Transform target)
         {
-            var dist = Vector3.Distance(player.position, target.position); //todo оптимизация
-            return dist <= ActiveDistance;
+            var distSqr = CustomVector.DistanceSqr(player.position, target.position);
+            return distSqr <= Mathf.Pow(ActiveDistance,2);
         }
 
     }

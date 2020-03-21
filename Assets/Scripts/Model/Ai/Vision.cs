@@ -29,8 +29,8 @@ namespace Geekbrains
 
         private bool Distance(Transform player, Transform target)
         {
-            var dist = Mathf.Pow(player.position.x - target.position.x, 2) + Mathf.Pow(player.position.y - target.position.y, 2);
-            return dist <= Mathf.Pow(ActiveDis,2);
+            var distSqr = CustomVector.DistanceSqr(player.position, target.position);
+            return distSqr <= Mathf.Pow(ActiveDis,2);
         }
     }
 }
