@@ -265,7 +265,7 @@ namespace Geekbrains
 
         private void InitializationPatroling()
         {
-            if (!Agent.hasPath)
+            if (!Agent.hasPath || Agent.velocity == Vector3.zero)
             {
                 _point = Patrol.GenericPoint(transform);
                 MoveToPoint(_point);
