@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Sirenix.OdinInspector;
 
 namespace Geekbrains
 {
@@ -24,6 +25,7 @@ namespace Geekbrains
         private BodyBot _bodyBot;
         private HeadBot _headBot;
         private ArmBot _armBot;
+        private FlagBot _flagBot;
         private DetectorBot _detectorBot;
         private Vector3 _point;
         private Vector3 _visionPointBoarder;
@@ -32,9 +34,9 @@ namespace Geekbrains
         public event Action<Bot> OnDieChange;
         public event Action<Transform> OnDeath = delegate { };
 
-        public Transform Target { get; set; }
         public NavMeshAgent Agent { get; private set; }
-        public Affiliation AffiliationSide
+        [ShowInInspector] public Transform Target { get; set; }
+        [ShowInInspector] public Affiliation AffiliationSide
         {
             get => _affiliationSide;
             set
@@ -89,6 +91,7 @@ namespace Geekbrains
             _headBot = GetComponentInChildren<HeadBot>();
             _armBot = GetComponentInChildren<ArmBot>();
             _detectorBot = GetComponentInChildren<DetectorBot>();
+            _flagBot = GetComponentInChildren<FlagBot>();
 
         }
 
@@ -239,6 +242,10 @@ namespace Geekbrains
                 Target = _targetsTransforms[0];
                 hasTarget = true;
             }
+            else
+            {
+                Target = null;
+            }
 
             return hasTarget;
         }
@@ -260,7 +267,6 @@ namespace Geekbrains
 
         private void InitializationPatroling()
         {
-            
             if (!Agent.hasPath)
             {
                 _point = Patrol.GenericPoint(transform);
@@ -369,6 +375,7 @@ namespace Geekbrains
                     Destroy(child.gameObject, 10);
                 }
 
+                AffiliationSide = Affiliation.None;
                 OnDeath?.Invoke(this.transform);
                 OnDieChange?.Invoke(this);
                 //gameObject.GetComponent<Bot>().enabled = false;
@@ -382,11 +389,7 @@ namespace Geekbrains
 
         private void SetSide()
         {
-            var flag = GetComponentInChildren<FlagBot>();
-            if (flag != null)
-            {
-                flag.AffiliationSide = _affiliationSide;
-            }
+                _flagBot.AffiliationSide = _affiliationSide;
         }
 
         #endregion
