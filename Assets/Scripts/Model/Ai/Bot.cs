@@ -19,6 +19,7 @@ namespace Geekbrains
         private float _waitTime = 3.0f;
         private float _rotationSpeed = 120.0f;
         private float _distanceOffset = 0.1f;
+        private bool _isResetingState;
         private StateBot _stateBot;
         private BodyBot _bodyBot;
         private HeadBot _headBot;
@@ -200,9 +201,13 @@ namespace Geekbrains
                     //CustomDebug.Log($"Distance = {Vector3.Distance(_point, transform.position)}, stop - offset = {_stoppingDistanceForPatroling + _distanceOffset} ");
                     if (Vector3.Distance(_point, transform.position) <= _stoppingDistanceForPatroling)
                     {
-                        StateBot = StateBot.Inspection;
-                        CustomDebug.Log($"StateBot = {StateBot}");
-                        Invoke(nameof(ResetStateBot), _waitTime);
+                        if (!_isResetingState)
+                        {
+                            StateBot = StateBot.Inspection;
+                            CustomDebug.Log($"StateBot = {StateBot}");
+                            Invoke(nameof(ResetStateBot), _waitTime);
+                            _isResetingState = true;
+                        }
                     }
                     else
                     {
@@ -329,6 +334,7 @@ namespace Geekbrains
         private void ResetStateBot()
         {
             StateBot = StateBot.None;
+            _isResetingState = true;
         }
 
         private void SetDamage(InfoCollision info)
