@@ -331,13 +331,12 @@ MonoBehaviour:
   Transform: {fileID: 0}
   Hp: 100
   Vision:
-    ActiveDis: 20
-    ActiveAng: 80
+    ActiveVisionDistance: 10
+    ActiveVisionAngle: 80
     LayerMask:
       serializedVersion: 2
       m_Bits: 1079
-  Sence:
-    ActiveDistance: 30
+    FeelingDistanceOffset: 15
   Weapon: {fileID: 2443827103268533189}
   _stoppingDistanceForDetected: 10
   _stoppingDistanceForPatroling: 1

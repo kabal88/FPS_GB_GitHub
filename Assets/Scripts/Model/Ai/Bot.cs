@@ -10,7 +10,6 @@ namespace Geekbrains
     {
         public float Hp = 100;
         public Vision Vision;
-        public Sence Sence;
         public Weapon Weapon; //todo с разным оружием
 
         [SerializeField] private float _stoppingDistanceForDetected = 5.0f;
@@ -172,14 +171,14 @@ namespace Geekbrains
                         }
                         else
                         {
-                            //if (Sence.FeelingTarget(transform, Target))
-                            //{
-                            //    CaptureTarget(Target.position);
-                            //}
-                            //else
-                            //{
+                            if (Vision.FeelingTarget(transform, Target))
+                            {
+                                CaptureTarget(Target.position);
+                            }
+                            else
+                            {
                                 StateBot = StateBot.Patrol;
-                            //}
+                            }
                         }
 
                     }
@@ -236,7 +235,6 @@ namespace Geekbrains
         {
             var hasTarget = false;
 
-            //CustomDebug.Log($"_targetsTransforms.Count = {_targetsTransforms.Count}");
             if (_targetsTransforms.Count > 0)
             {
                 Target = _targetsTransforms[0];
