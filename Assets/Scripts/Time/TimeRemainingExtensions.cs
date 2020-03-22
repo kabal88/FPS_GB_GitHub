@@ -28,6 +28,7 @@ namespace Geekbrains
                 return;
             }
             _timeRemainings.Add(value);
+            CustomDebug.Log($"Timer Add");
         }
 
         public static void Remove(this TimeRemaining value)

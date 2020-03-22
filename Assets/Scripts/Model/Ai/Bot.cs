@@ -56,7 +56,7 @@ namespace Geekbrains
                 switch (value)
                 {
                     case StateBot.None:
-                        CustomDebug.Log($"Agent.hasPath = {Agent.hasPath}");
+                        //CustomDebug.Log($"Agent.hasPath = {Agent.hasPath}");
                         Color = Color.white;
                         break;
                     case StateBot.Patrol:
@@ -66,7 +66,7 @@ namespace Geekbrains
                         Color = Color.yellow;
                         break;
                     case StateBot.Detected:
-                        CustomDebug.Log($"_targetsTransforms.Count = {_targetsTransforms.Count}");
+                        //CustomDebug.Log($"_targetsTransforms.Count = {_targetsTransforms.Count}");
                         Color = Color.red;
                         break;
                     case StateBot.Died:
@@ -268,7 +268,7 @@ namespace Geekbrains
         {
             if (!Agent.hasPath || Agent.velocity == Vector3.zero)
             {
-                _point = Patrol.GenericPoint(transform);
+                _point = Patrol.GenericRandomPoint(transform);
                 MoveToPoint(_point);
                 Agent.stoppingDistance = _stoppingDistanceForPatroling;
             }

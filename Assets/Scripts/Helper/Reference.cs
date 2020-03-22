@@ -6,5 +6,7 @@ namespace Geekbrains
     {
         public Bot BotTypeOne;
         public Bot BotTypeTwo;
+        public Transform SpawningPointTeamOne;
+        public Transform SpawningPointTeamTwo;
     }
 }

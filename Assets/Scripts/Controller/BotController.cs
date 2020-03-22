@@ -8,6 +8,7 @@ namespace Geekbrains
     {
         private readonly int _countBotSideOne = 5;
         private readonly int _countBotSideTwo = 5;
+        private float _timeBetweenSpawn = 5;
         private readonly HashSet<Bot> _getBotList = new HashSet<Bot>();
 
         public void Initialization()
@@ -16,7 +17,7 @@ namespace Geekbrains
             for (int index = 0; index < _countBotSideOne; index++)
             {
                 var tempBot = Object.Instantiate(ServiceLocatorMonoBehaviour.GetService<Reference>().BotTypeOne,
-                    Patrol.GenericPoint(ServiceLocatorMonoBehaviour.GetService<CharacterController>().transform),
+                    Patrol.GenericStartingPoint(ServiceLocatorMonoBehaviour.GetService<CharacterController>().transform, Affiliation.SideOne),
                     Quaternion.identity);
 
                 tempBot.Agent.avoidancePriority = 0;
@@ -27,16 +28,12 @@ namespace Geekbrains
             for (var index = 0; index < _countBotSideTwo; index++)
             {
                 var tempBot = Object.Instantiate(ServiceLocatorMonoBehaviour.GetService<Reference>().BotTypeTwo,
-                    Patrol.GenericPoint(ServiceLocatorMonoBehaviour.GetService<CharacterController>().transform),
+                    Patrol.GenericStartingPoint(ServiceLocatorMonoBehaviour.GetService<CharacterController>().transform, Affiliation.SideTwo),
                     Quaternion.identity);
 
                 tempBot.Agent.avoidancePriority = 0;
-                //tempBot.Target = ServiceLocatorMonoBehaviour.GetService<CharacterController>().transform;
-                //tempBot.Target = targetBot.transform;
                 tempBot.AffiliationSide = Affiliation.SideTwo;
-                //todo разных противников
                 AddBotToList(tempBot);
-                //targetBot.Target = tempBot.transform;
             }
 
         }
@@ -67,6 +64,8 @@ namespace Geekbrains
             {
                 return;
             }
+
+            //TimeRemainingExtensions.Add(new TimeRemaining(Initialization, _timeBetweenSpawn, false));
             //CustomDebug.Log($"_getBotList.Count for execute = {_getBotList.Count}");
             for (var i = 0; i < _getBotList.Count; i++)
             {

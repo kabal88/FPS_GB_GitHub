@@ -4,21 +4,31 @@ namespace Geekbrains
 {
     public class Test : MonoBehaviour
     {
-        public Canvas Canvas;
+
+        public int Count;
+        private TimeRemaining _timer = new TimeRemaining(delegate { }, 1, true);
+
+
         private void Start()
         {
-            FindObjectOfType<FlashLightModel>().Layer = 2;
-
-            gameObject.CompareTag(TagManager.PLAYER);
+            _timer = new TimeRemaining(TestingPrint, 1, true);
+            Count = 0;
+            TimeRemainingExtensions.Add(_timer);
         }
 
-        private void OnValidate()
+        //private void OnValidate()
+        //{
+        //    if (TryGetComponent(out Canvas canvas))
+        //    {
+        //        Canvas = canvas;
+        //        Canvas.enabled = false;
+        //    }
+        //}
+
+        private void TestingPrint()
         {
-            if (TryGetComponent(out Canvas canvas))
-            {
-                Canvas = canvas;
-                Canvas.enabled = false;
-            }
+            Count++;
+            CustomDebug.Log($"Testign timer execute {Count} times!");
         }
     }
 }
