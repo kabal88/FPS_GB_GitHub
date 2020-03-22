@@ -25,7 +25,7 @@ namespace Geekbrains
             Vector3 result;
             Vector3 startingPoint;
 
-            var dis = Random.Range(2, 10);
+            var dis = Random.Range(2, 8);
             var randomPoint = Random.insideUnitSphere * dis;
 
 
