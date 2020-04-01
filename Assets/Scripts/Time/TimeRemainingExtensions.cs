@@ -25,10 +25,10 @@ namespace Geekbrains
         {
             if (_timeRemainings.Contains(value))
             {
-                return;
+                return; 
             }
             _timeRemainings.Add(value);
-            CustomDebug.Log($"Timer Add");
+            CustomDebug.Log($"Timer Add {value}");
         }
 
         public static void Remove(this TimeRemaining value)

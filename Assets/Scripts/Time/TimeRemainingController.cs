@@ -36,7 +36,7 @@ namespace Geekbrains
                 if (obj.CurrentTime <= 0.0f)
                 {
                     obj?.Method?.Invoke();
-                    CustomDebug.Log($"Invoke method");
+                    CustomDebug.Log($"Invoke method {obj.Method}");
                     if (!obj.IsRepeating)
                     {
                         obj.Remove();

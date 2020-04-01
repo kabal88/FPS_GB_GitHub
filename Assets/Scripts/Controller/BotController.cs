@@ -10,11 +10,18 @@ namespace Geekbrains
         private readonly int _countBotSideTwo = 5;
         private float _timeBetweenSpawn = 5;
         private readonly HashSet<Bot> _getBotList = new HashSet<Bot>();
+        private TimeRemaining _timeRemaining;
 
         public void Initialization()
         {
+            SpawningBots();
+            _timeRemaining = new TimeRemaining(SpawningBots,_timeBetweenSpawn,true);
+            TimeRemainingExtensions.Add(_timeRemaining);
+        }
 
-            for (int index = 0; index < _countBotSideOne; index++)
+        private void SpawningBots()
+        {
+            for (var index = 0; index < _countBotSideOne; index++)
             {
                 var tempBot = Object.Instantiate(ServiceLocatorMonoBehaviour.GetService<Reference>().BotTypeOne,
                     Patrol.GenericStartingPoint(ServiceLocatorMonoBehaviour.GetService<CharacterController>().transform, Affiliation.SideOne),
@@ -35,9 +42,8 @@ namespace Geekbrains
                 tempBot.AffiliationSide = Affiliation.SideTwo;
                 AddBotToList(tempBot);
             }
-
         }
-
+        
         private void AddBotToList(Bot bot)
         {
             if (!_getBotList.Contains(bot))
@@ -60,13 +66,8 @@ namespace Geekbrains
 
         public void Execute()
         {
-            if (!IsActive)
-            {
-                return;
-            }
-
-            //TimeRemainingExtensions.Add(new TimeRemaining(Initialization, _timeBetweenSpawn, false));
-            //CustomDebug.Log($"_getBotList.Count for execute = {_getBotList.Count}");
+            if (!IsActive) return;
+            
             for (var i = 0; i < _getBotList.Count; i++)
             {
                 var bot = _getBotList.ElementAt(i);

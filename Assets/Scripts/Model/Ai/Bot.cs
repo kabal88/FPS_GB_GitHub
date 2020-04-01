@@ -47,7 +47,7 @@ namespace Geekbrains
         }
 
 
-        private StateBot StateBot
+        [ShowInInspector] private StateBot StateBot
         {
             get => _stateBot;
             set
@@ -106,11 +106,7 @@ namespace Geekbrains
 
         private void OnDisable()
         {
-            if (_bodyBot != null) _bodyBot.OnApplyDamageChange -= SetDamage;
-            if (_headBot != null) _headBot.OnApplyDamageChange -= SetDamage;
-            if (_detectorBot != null) _detectorBot.OnTargetDetected -= AddTargetToTargetsList;
-            if (_detectorBot != null) _detectorBot.OnTargetLost -= RemoveTargetFromTargetList;
-            if (Weapon != null) Weapon.OnAmmoEnd -= Weapon.ReloadClip;
+            ClearEventSigning();
         }
 
         private void OnDrawGizmos()
@@ -152,6 +148,9 @@ namespace Geekbrains
             switch (StateBot)
             {
                 case StateBot.Died:
+                    
+                    ClearEventSigning();
+                    
                     break;
 
                 case StateBot.Detected:
@@ -389,6 +388,15 @@ namespace Geekbrains
         private void SetSide()
         {
             _flagBot.AffiliationSide = _affiliationSide;
+        }
+
+        private void ClearEventSigning()
+        {
+            if (_bodyBot != null) _bodyBot.OnApplyDamageChange -= SetDamage;
+            if (_headBot != null) _headBot.OnApplyDamageChange -= SetDamage;
+            if (_detectorBot != null) _detectorBot.OnTargetDetected -= AddTargetToTargetsList;
+            if (_detectorBot != null) _detectorBot.OnTargetLost -= RemoveTargetFromTargetList;
+            if (Weapon != null) Weapon.OnAmmoEnd -= Weapon.ReloadClip;
         }
 
         #endregion
