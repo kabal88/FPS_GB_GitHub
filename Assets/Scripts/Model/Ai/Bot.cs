@@ -76,6 +76,8 @@ namespace Geekbrains
                         Color = Color.cyan;
                         break;
                 }
+            }
+        }
 
             }
         }
@@ -380,7 +382,9 @@ namespace Geekbrains
             }
         }
 
+
         public void MoveToPoint(Vector3 point)
+
         {
             Agent.SetDestination(point);
         }

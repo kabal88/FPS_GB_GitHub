@@ -27,6 +27,7 @@ namespace Geekbrains
 
 
 		protected virtual void Start()
+
 		{
 			for (var i = 0; i <= _countClip; i++)
 			{

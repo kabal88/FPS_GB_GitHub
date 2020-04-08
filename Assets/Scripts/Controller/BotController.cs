@@ -26,6 +26,9 @@ namespace Geekbrains
                 var tempBot = Object.Instantiate(ServiceLocatorMonoBehaviour.GetService<Reference>().BotTypeOne,
                     Patrol.GenericStartingPoint(ServiceLocatorMonoBehaviour.GetService<CharacterController>().transform, Affiliation.SideOne),
                     Quaternion.identity);
+                tempBot.Agent.avoidancePriority = 0;
+            // tempBot.Target = ServiceLocatorMonoBehaviour.GetService<CharacterController>().transform;
+            tempBot.Target = targetBot.transform;
 
                 tempBot.Agent.avoidancePriority = 0;
                 tempBot.AffiliationSide = Affiliation.SideOne;
