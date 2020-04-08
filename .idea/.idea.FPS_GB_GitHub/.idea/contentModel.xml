@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$PROJECT_DIR$" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Plugins" t="Include">
+          <e p="Sirenix" t="Include">
+            <e p="Odin Inspector" t="Include">
+              <e p="Scripts" t="Include">
+                <e p="Editor" t="Include">
+                  <e p="AssemblyImportSettingsAutomation.cs" t="Include" />
+                  <e p="BuildAOTAutomation.cs" t="Include" />
+                  <e p="EnsureOdinInspectorDefine.cs" t="Include" />
+                  <e p="FixBrokenUnityObjectWrapperDrawer.cs" t="Include" />
+                  <e p="Sirenix.OdinInspector.CompatibilityLayer.Editor.asmdef" t="Include" />
+                  <e p="SyncListDrawer.cs" t="Include" />
+                  <e p="SyncVarAttributeDrawer.cs" t="Include" />
+                  <e p="Vector2IntMinMaxAttributeDrawer.cs" t="Include" />
+                  <e p="VectorIntDrawers.cs" t="Include" />
+                  <e p="VectorIntPropertyResolvers.cs" t="Include" />
+                </e>
+                <e p="SerializedNetworkBehaviour.cs" t="Include" />
+                <e p="Sirenix.OdinInspector.CompatibilityLayer.asmdef" t="Include" />
+                <e p="VectorIntFormatters.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+        </e>
+        <e p="Scripts" t="Include">
+          <e p="Controller" t="Include">
+            <e p="BaseController.cs" t="Include" />
+            <e p="BotController.cs" t="Include" />
+            <e p="Controllers.cs" t="Include" />
+            <e p="FlashLightController.cs" t="Include" />
+            <e p="GameController.cs" t="Include" />
+            <e p="InputController.cs" t="Include" />
+            <e p="PlayerController.cs" t="Include" />
+            <e p="SelectionController.cs" t="Include" />
+            <e p="WeaponController.cs" t="Include" />
+          </e>
+          <e p="Editor" t="Include">
+            <e p="CreateCone.cs" t="Include" />
+            <e p="CreateWayPoint.cs" t="Include" />
+            <e p="CreateWayPointEditor.cs" t="Include" />
+            <e p="MenuItems.cs" t="Include" />
+            <e p="MyWindow.cs" t="Include" />
+          </e>
+          <e p="Enums" t="Include">
+            <e p="Affiliation.cs" t="Include" />
+            <e p="AmmunitionType.cs" t="Include" />
+            <e p="FlashLightActiveType.cs" t="Include" />
+            <e p="MouseButton.cs" t="Include" />
+            <e p="MouseScrollWheel.cs" t="Include" />
+            <e p="StateBot.cs" t="Include" />
+          </e>
+          <e p="Helper" t="Include">
+            <e p="BulletProjector.cs" t="Include" />
+            <e p="CustomDebug.cs" t="Include" />
+            <e p="CustomVector.cs" t="Include" />
+            <e p="ExtensionsArray.cs" t="Include" />
+            <e p="InfoCollision.cs" t="Include" />
+            <e p="PathBot.cs" t="Include" />
+            <e p="Reference.cs" t="Include" />
+            <e p="SerializableGameObject.cs" t="Include" />
+          </e>
+          <e p="Interface" t="Include">
+            <e p="IExecute.cs" t="Include" />
+            <e p="IInitialization.cs" t="Include" />
+            <e p="IMotor.cs" t="Include" />
+            <e p="ISelectObj.cs" t="Include" />
+            <e p="ISetDamage.cs" t="Include" />
+            <e p="ITargeted.cs" t="Include" />
+          </e>
+          <e p="Manager" t="Include">
+            <e p="TagManager.cs" t="Include" />
+          </e>
+          <e p="Model" t="Include">
+            <e p="Ai" t="Include">
+              <e p="ArmBot.cs" t="Include" />
+              <e p="BodyBot.cs" t="Include" />
+              <e p="Bot.cs" t="Include" />
+              <e p="DetectorBot.cs" t="Include" />
+              <e p="FlagBot.cs" t="Include" />
+              <e p="HeadBot.cs" t="Include" />
+              <e p="Patrol.cs" t="Include" />
+              <e p="Sence.cs" t="Include" />
+              <e p="Vision.cs" t="Include" />
+            </e>
+            <e p="Aim.cs" t="Include" />
+            <e p="Ammunition.cs" t="Include" />
+            <e p="Axe.cs" t="Include" />
+            <e p="BaseObjectScene.cs" t="Include" />
+            <e p="Bullet.cs" t="Include" />
+            <e p="Clip.cs" t="Include" />
+            <e p="Environment.cs" t="Include" />
+            <e p="FlashLightModel.cs" t="Include" />
+            <e p="Gun.cs" t="Include" />
+            <e p="Inventory.cs" t="Include" />
+            <e p="UnitMotor.cs" t="Include" />
+            <e p="Wall.cs" t="Include" />
+            <e p="Weapon.cs" t="Include" />
+          </e>
+          <e p="ServiceLocator" t="Include">
+            <e p="ServiceLocator.cs" t="Include" />
+            <e p="ServiceLocatorMonoBehaviour.cs" t="Include" />
+            <e p="ServiceTimer.cs" t="Include" />
+          </e>
+          <e p="Test" t="Include">
+            <e p="AimingTest.cs" t="Include" />
+            <e p="DestroyPoint.cs" t="Include" />
+            <e p="MovingPoints.cs" t="Include" />
+          </e>
+          <e p="Test.cs" t="Include" />
+          <e p="Time" t="Include">
+            <e p="TimeRemaining.cs" t="Include" />
+            <e p="TimeRemainingController.cs" t="Include" />
+            <e p="TimeRemainingExtensions.cs" t="Include" />
+          </e>
+          <e p="View" t="Include">
+            <e p="AimUiText.cs" t="Include" />
+            <e p="FlashLightUiBar.cs" t="Include" />
+            <e p="FlashLightUiText.cs" t="Include" />
+            <e p="SelectionObjMessageUi.cs" t="Include" />
+            <e p="UiInterface.cs" t="Include" />
+            <e p="WeaponUiText.cs" t="Include" />
+          </e>
+        </e>
+        <e p="SpawnTester.cs" t="Include" />
+      </e>
+      <e p="FPS_GB_GitHub.sln" t="IncludeFlat" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="Packages" t="ExcludeRecursive" />
+      <e p="Sirenix.OdinInspector.CompatibilityLayer.csproj" t="IncludeRecursive" />
+      <e p="Sirenix.OdinInspector.CompatibilityLayer.Editor.csproj" t="IncludeRecursive" />
+      <e p="Temp/bin" t="ExcludeRecursive" />
+    </e>
+    <e p="$USER_HOME$/Library/Caches/Rider2019.3/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2019.3/resharper-host/local/Transient/ReSharperHost/v193/SolutionCaches/_FPS_GB_GitHub.-1135354951.00" t="ExcludeRecursive" />
+  </component>
+</project>
